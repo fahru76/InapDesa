@@ -1,0 +1,226 @@
+@import "tailwindcss";
+
+/* `dark:` follows the system setting, and is forced on by a theme that is dark-only (Malam):
+   pages mark it with [data-page-scheme="dark"]; the host editor preview scopes it with [data-scheme="dark"]. */
+@custom-variant dark {
+  @media (prefers-color-scheme: dark) {
+    @slot;
+  }
+  &:where(:root:has([data-page-scheme="dark"]) *, [data-scheme="dark"], [data-scheme="dark"] *) {
+    @slot;
+  }
+}
+
+/* ─── Design tokens — "warm heritage editorial" ──────────────────────────────
+   Teak ink + ivory + sand, brass hairlines, owner accent (default jungle green).
+   Other listing themes override these tokens per page (src/lib/themes.ts). */
+@theme {
+  --font-sans: "Plus Jakarta Sans Variable", "Plus Jakarta Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: "Cormorant Garamond Variable", "Cormorant Garamond", Georgia, "Times New Roman", serif;
+
+  --color-ink: #1c1712;
+  --color-paper: #fffcf6;
+  --color-ivory: #f7f2e9;
+  --color-teak-950: #120f0c;
+  --color-teak-900: #1c1712;
+  --color-teak-800: #2a221b;
+  --color-teak-700: #3a2f25;
+  /* Brass: decoration on light (2.8:1 on ivory), text/icons on dark only. brass-ink is the text-safe tone on light (5.4:1). */
+  --color-brass: #b08d57;
+  --color-brass-light: #c9a96e;
+  --color-brass-ink: #7a5f35;
+
+  /* Owner accent — default jungle green (#2f5d46, 7.6:1 with white). Overridden per listing by accentCss(). */
+  --color-brand-50: #eff5f1;
+  --color-brand-100: #d9e8df;
+  --color-brand-200: #b5d1c0;
+  --color-brand-300: #88b39a;
+  --color-brand-400: #5c9173;
+  --color-brand-500: #3f7559;
+  --color-brand-600: #2f5d46;
+  --color-brand-700: #274d3a;
+  --color-brand-800: #1f3d2e;
+  --color-brand-900: #183024;
+  --color-terracotta-400: #d98b5f;
+  --color-terracotta-500: #c2410c;
+  --color-terracotta-600: #a7380b;
+  --color-sand-50: #faf6ef;
+  --color-sand-100: #f1eadd;
+  --color-sand-200: #e9e0d0;
+
+  /* Warm greys replace Tailwind's cool zinc everywhere (500 = 4.6:1 on ivory; 400 = 6.8:1 on dark). */
+  --color-zinc-50: #faf7f1;
+  --color-zinc-100: #f2ece2;
+  --color-zinc-200: #e5ddd0;
+  --color-zinc-300: #d2c7b6;
+  --color-zinc-400: #a69a88;
+  --color-zinc-500: #776c5d;
+  --color-zinc-600: #5b5245;
+  --color-zinc-700: #443d33;
+  --color-zinc-800: #2d2822;
+  --color-zinc-900: #1f1b16;
+  --color-zinc-950: #141110;
+
+  --shadow-soft: 0 1px 2px rgb(28 23 18 / 0.04), 0 8px 24px -10px rgb(28 23 18 / 0.10);
+  --shadow-float: 0 2px 6px rgb(28 23 18 / 0.05), 0 28px 56px -16px rgb(28 23 18 / 0.22);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ─── Base ────────────────────────────────────────────────────────────────── */
+@layer base {
+  :root {
+    color-scheme: light dark;
+    --surface: #f7f2e9;
+    --surface-muted: #f1eadd;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --surface: #141110;
+      --surface-muted: #1a1613;
+      /* Secondary text stays >= 4.5:1 on dark surfaces (5.9:1 on #141110). */
+      --color-zinc-500: #9a8f7e;
+      --color-terracotta-600: #e08a5c;
+      --drop-cap-color: var(--color-brand-300);
+    }
+  }
+
+  html {
+    -webkit-tap-highlight-color: transparent;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    background-color: var(--surface);
+    @apply font-sans text-ink antialiased dark:text-zinc-100;
+  }
+
+  ::selection {
+    @apply bg-brand-200 text-ink;
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-brand-600;
+  }
+}
+
+/* ─── Utilities ───────────────────────────────────────────────────────────── */
+@utility glass {
+  @apply border border-white/40 backdrop-blur-xl backdrop-saturate-150 dark:border-zinc-800/80;
+  background-color: color-mix(in oklab, var(--surface) 80%, transparent);
+}
+
+@utility card {
+  @apply rounded-2xl border border-zinc-200/80 bg-paper shadow-soft dark:border-zinc-800/80 dark:bg-zinc-900/60;
+}
+
+/* Small uppercase label above headings ("THE HOUSE"). */
+@utility eyebrow {
+  @apply text-[11px] font-semibold tracking-[0.22em] text-brass-ink uppercase dark:text-brass-light;
+}
+
+/* Editorial display headings. */
+@utility display {
+  font-family: var(--font-display);
+  font-weight: 500;
+  letter-spacing: var(--display-tracking, -0.01em);
+  font-size-adjust: var(--display-adjust, none);
+  line-height: 1.05;
+}
+
+/* Drop cap on the first paragraph of the story. */
+@utility drop-cap {
+  &::first-letter {
+    float: left;
+    margin: 0.06em 0.12em 0 0;
+    font-family: var(--font-display);
+    font-size: 3.6em;
+    line-height: 0.8;
+    color: var(--drop-cap-color, var(--color-brand-700));
+  }
+}
+
+/* Very fine film grain for dark bands (inline SVG noise, ~1 KB). */
+@utility grain {
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.07;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+}
+
+/* Slow hero drift (paused by the hero's pause control; disabled under reduced motion). */
+@utility animate-drift {
+  animation: drift 24s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+/* Scroll reveal (see components/ui/reveal.tsx). Visible unless JS marks it hidden. */
+[data-reveal] {
+  transition:
+    opacity 0.8s var(--ease-out-expo),
+    transform 0.8s var(--ease-out-expo);
+}
+[data-reveal="hidden"] {
+  opacity: 0;
+  transform: translateY(24px);
+}
+
+@keyframes drift {
+  from { transform: scale(1.02) translate3d(0, 0, 0); }
+  to { transform: scale(1.12) translate3d(-1.5%, -1%, 0); }
+}
+
+@utility surface-muted {
+  background-color: var(--surface-muted);
+}
+
+@utility skeleton {
+  border-radius: 0.75rem;
+  background: linear-gradient(90deg, rgb(0 0 0 / 0.04), rgb(0 0 0 / 0.08), rgb(0 0 0 / 0.04));
+  background-size: 200% 100%;
+  animation: shimmer 1.6s linear infinite;
+}
+
+@keyframes shimmer {
+  from { background-position: 200% 0; }
+  to { background-position: -200% 0; }
+}
+
+@utility scrollbar-none {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@utility pb-safe {
+  padding-bottom: max(1rem, env(safe-area-inset-bottom));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media print {
+  header,
+  footer,
+  .no-print {
+    display: none !important;
+  }
+}
+
+/* Theme heading fonts with a larger x-height are scaled to the default serif's visual size (see src/lib/themes.ts). */
+.font-display {
+  font-size-adjust: var(--display-adjust, none);
+}

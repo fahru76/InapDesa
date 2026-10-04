@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>InapDesa theme options</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Lora:wght@500;600&family=Playfair+Display:wght@500;600&family=Libre+Bodoni:wght@500;600&family=Cinzel:wght@500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap">
+<style>
+  :root { --page:#ecebe7; --text:#1d1d1b; --sub:#55544f; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--page); color:var(--text); font:15px/1.55 "Plus Jakarta Sans", system-ui, sans-serif; }
+  header.top { max-width:1240px; margin:0 auto; padding:40px 16px 8px; }
+  header.top h1 { font:600 28px/1.2 "Plus Jakarta Sans", sans-serif; margin:0 0 6px; letter-spacing:-.01em; }
+  header.top p { margin:0; color:var(--sub); max-width:760px; }
+  .grid { max-width:1240px; margin:0 auto; padding:24px 16px 56px; display:grid; gap:20px; grid-template-columns:repeat(auto-fill, minmax(340px, 1fr)); }
+  @media (max-width:400px){ .grid { grid-template-columns:1fr; } }
+  .opt { background:#fff; border-radius:18px; overflow:hidden; box-shadow:0 1px 2px rgba(0,0,0,.06), 0 8px 24px rgba(0,0,0,.05); display:flex; flex-direction:column; }
+  .opt.current { outline:2px dashed #9a978e; outline-offset:-2px; }
+  .mock { background:var(--bg); color:var(--ink); padding:14px; }
+  .hero { position:relative; height:150px; border-radius:var(--r); overflow:hidden; background:var(--sky); }
+  .hero svg { position:absolute; inset:0; width:100%; height:100%; }
+  .hero .tag { position:absolute; z-index:1; left:12px; top:12px; font-size:10px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; padding:4px 8px; border-radius:999px; background:var(--tagbg); color:var(--tagfg); }
+  .body { padding:14px 4px 4px; }
+  .eyebrow { font-size:10.5px; font-weight:600; letter-spacing:.18em; text-transform:uppercase; color:var(--eyebrow); }
+  .title { font-family:var(--display); font-weight:var(--dw,600); font-size:var(--ds,28px); line-height:1.1; margin:6px 0 4px; letter-spacing:var(--dls,0); }
+  .title em { font-style:var(--dital,italic); color:var(--accentText); }
+  .meta { font-size:12.5px; color:var(--muted); }
+  .rule { height:1px; background:var(--line); margin:12px 0; position:relative; }
+  .rule.orn::after { content:""; position:absolute; left:50%; top:-3px; width:7px; height:7px; transform:translateX(-50%) rotate(45deg); background:var(--orn); }
+  .book { display:flex; justify-content:space-between; align-items:center; gap:10px; background:var(--surface); border:1px solid var(--line); border-radius:var(--r); padding:10px 12px; }
+  .price { font-family:var(--display); font-size:22px; font-weight:var(--dw,600); line-height:1; }
+  .price small { font-family:"Plus Jakarta Sans", sans-serif; font-size:11.5px; color:var(--muted); font-weight:500; }
+  .btn { border:0; font:600 12.5px/1 "Plus Jakarta Sans", sans-serif; padding:11px 14px; min-height:40px; border-radius:var(--btnr); background:var(--accent); color:var(--onaccent); letter-spacing:var(--btnls,0); text-transform:var(--btntt,none); cursor:pointer; }
+  .chips { display:flex; gap:6px; flex-wrap:wrap; margin-top:10px; }
+  .chip { font-size:11px; padding:4px 9px; border-radius:999px; border:1px solid var(--line); color:var(--muted); background:var(--surface); }
+  .info { padding:16px 18px 18px; display:flex; flex-direction:column; gap:10px; flex:1; }
+  .info h2 { margin:0; font:600 18px/1.25 "Plus Jakarta Sans", sans-serif; }
+  .info h2 span.k { font-weight:500; color:var(--sub); font-size:13px; margin-left:6px; }
+  .info p { margin:0; color:#3f3e3a; font-size:13.5px; }
+  .sw { display:flex; gap:8px; flex-wrap:wrap; }
+  .sw div { display:flex; flex-direction:column; align-items:center; gap:3px; font:500 10px/1 ui-monospace, Menlo, monospace; color:var(--sub); }
+  .sw i { width:34px; height:34px; border-radius:9px; border:1px solid rgba(0,0,0,.08); display:block; }
+  dl { display:grid; grid-template-columns:auto 1fr; gap:4px 12px; margin:0; font-size:12.5px; }
+  dt { color:var(--sub); } dd { margin:0; }
+  .pc { display:grid; grid-template-columns:1fr 1fr; gap:10px; font-size:12.5px; }
+  .pc ul { margin:4px 0 0; padding-left:16px; } .pc b { font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--sub); }
+  .badge { display:inline-block; font:600 10.5px/1 "Plus Jakarta Sans",sans-serif; padding:4px 7px; border-radius:6px; background:#e8f1ea; color:#24563a; margin-left:6px; vertical-align:middle; }
+  footer { max-width:1240px; margin:0 auto; padding:0 16px 48px; color:var(--sub); font-size:12.5px; }
+
+  .t-heritage { --bg:#f7f2e9; --surface:#fffcf6; --ink:#1c1712; --muted:#776c5d; --line:#e5ddd0; --accent:#2f5d46; --onaccent:#fff; --accentText:#7a5f35; --eyebrow:#7a5f35; --orn:#b08d57; --display:"Cormorant Garamond", Georgia, serif; --ds:30px; --r:14px; --btnr:999px; --sky:linear-gradient(180deg,#e9dcc4,#cdb48a); --tagbg:#1c1712cc; --tagfg:#f3e6cc; --hill:#5f6b4a; --roof:#3a2f25; }
+  .t-malam { --bg:#14110e; --surface:#1d1814; --ink:#f3ebdd; --muted:#b3a690; --line:#3a3128; --accent:#c9a96e; --onaccent:#14110e; --accentText:#c9a96e; --eyebrow:#c9a96e; --orn:#c9a96e; --display:"Cormorant Garamond", Georgia, serif; --ds:31px; --dw:500; --r:4px; --btnr:2px; --btnls:.12em; --btntt:uppercase; --sky:linear-gradient(180deg,#0e1420,#2b2a35 55%,#5a4632); --tagbg:#c9a96e; --tagfg:#14110e; --hill:#0c0b09; --roof:#1b1612; }
+  .t-tanah { --bg:#f5efe4; --surface:#fbf7f0; --ink:#2b211a; --muted:#6e5f50; --line:#e2d6c3; --accent:#a4472a; --onaccent:#fff; --accentText:#a4472a; --eyebrow:#7d5a3c; --orn:#c67b5c; --display:"Lora", Georgia, serif; --ds:27px; --dital:normal; --r:22px; --btnr:16px; --sky:linear-gradient(180deg,#f2d7b8,#d9a47c); --tagbg:#fbf7f0; --tagfg:#7d5a3c; --hill:#7a7a4a; --roof:#8a4a2e; }
+  .t-pesisir { --bg:#f6f7f4; --surface:#ffffff; --ink:#14283d; --muted:#566472; --line:#dde3e6; --accent:#1f4e6e; --onaccent:#fff; --accentText:#1f4e6e; --eyebrow:#3d6b88; --orn:#c8b48a; --display:"Playfair Display", Georgia, serif; --ds:26px; --r:12px; --btnr:10px; --sky:linear-gradient(180deg,#cfe3ec,#f1e6cf); --tagbg:#ffffffd9; --tagfg:#14283d; --hill:#2f6f8a; --roof:#e8dcc2; }
+  .t-galeri { --bg:#ffffff; --surface:#f6f6f4; --ink:#111111; --muted:#5f5f5c; --line:#e4e4e0; --accent:#111111; --onaccent:#fff; --accentText:#111111; --eyebrow:#5f5f5c; --orn:#111111; --display:"Libre Bodoni", Didot, serif; --ds:27px; --dw:500; --r:0px; --btnr:0px; --btnls:.14em; --btntt:uppercase; --sky:linear-gradient(180deg,#d8d8d4,#a9a9a3); --tagbg:#111; --tagfg:#fff; --hill:#3b3b38; --roof:#111; }
+  .t-peranakan { --bg:#fbf6ec; --surface:#ffffff; --ink:#1f2a28; --muted:#5d6a66; --line:#eadfca; --accent:#1f6b5c; --onaccent:#fff; --accentText:#b84e43; --eyebrow:#b84e43; --orn:#d9a441; --display:"Cinzel", "Trajan Pro", serif; --ds:22px; --dls:.04em; --dital:normal; --r:10px; --btnr:999px; --sky:linear-gradient(180deg,#f6dccf,#e9c27c); --tagbg:#1f6b5c; --tagfg:#fbf6ec; --hill:#1f6b5c; --roof:#b84e43; }
+  .t-peranakan .hero::before { content:""; position:absolute; inset:0; opacity:.22; background:
+      radial-gradient(circle at 50% 50%, #1f6b5c 0 3px, transparent 4px) 0 0/22px 22px,
+      radial-gradient(circle at 50% 50%, #b84e43 0 2px, transparent 3px) 11px 11px/22px 22px; }
+</style>
+</head>
+<body>
+<header class="top">
+  <h1>Alternative themes for InapDesa</h1>
+  <p>Five directions shown next to the current Heritage look. Each would become a new choice under Host → Content → Theme, the same way Classic works today. All text and buttons pass WCAG AA contrast (4.5:1). Body text stays Plus Jakarta Sans everywhere; only the heading font, colours, corners and button style change, so each theme adds at most one font.</p>
+</header>
+<main class="grid">
+
+  <article class="opt current">
+    <div class="mock t-heritage">
+      <div class="hero"><span class="tag">Kampung stay</span>
+        <svg viewBox="0 0 360 150" preserveAspectRatio="none" aria-hidden="true"><path d="M0 110 Q90 70 180 100 T360 95 V150 H0Z" fill="var(--hill)"/><path d="M150 112 L200 78 L250 112 Z" fill="var(--roof)"/><rect x="160" y="110" width="80" height="26" fill="var(--roof)"/></svg></div>
+      <div class="body">
+        <div class="eyebrow">Kuala Kangsar · Perak</div>
+        <div class="title">Rumah Kayu <em>Seri Bayu</em></div>
+        <div class="meta">★ 4.9 · 18 reviews · 3 bedrooms · 8 guests</div>
+        <div class="rule orn"></div>
+        <div class="book"><div class="price">RM 480 <small>/ night</small></div><button class="btn">Check availability</button></div>
+        <div class="chips"><span class="chip">Free cancellation 7 days</span><span class="chip">Breakfast</span></div>
+      </div>
+    </div>
+    <div class="info">
+      <h2>Heritage <span class="k">current default</span></h2>
+      <p>Warm ivory and teak, brass details and a classical serif. Already built and live.</p>
+      <div class="sw"><div><i style="background:#f7f2e9"></i>f7f2e9</div><div><i style="background:#1c1712"></i>1c1712</div><div><i style="background:#b08d57"></i>b08d57</div><div><i style="background:#2f5d46"></i>2f5d46</div></div>
+      <dl><dt>Heading</dt><dd>Cormorant Garamond</dd><dt>Contrast</dt><dd>Text 15.6:1 · button 7.6:1</dd></dl>
+    </div>
+  </article>
+
+  <article class="opt">
+    <div class="mock t-malam">
+      <div class="hero"><span class="tag">Evening retreat</span>
+        <svg viewBox="0 0 360 150" preserveAspectRatio="none" aria-hidden="true"><circle cx="290" cy="38" r="12" fill="#e8d3a6" opacity=".85"/><path d="M0 115 Q90 80 180 105 T360 100 V150 H0Z" fill="var(--hill)"/><path d="M150 114 L200 80 L250 114 Z" fill="var(--roof)"/><rect x="160" y="112" width="80" height="26" fill="var(--roof)"/><rect x="178" y="120" width="10" height="9" fill="#e8c27a"/><rect x="212" y="120" width="10" height="9" fill="#e8c27a"/></svg></div>
+      <div class="body">
+        <div class="eyebrow">Kuala Kangsar · Perak</div>
+        <div class="title">Rumah Kayu <em>Seri Bayu</em></div>
+        <div class="meta">★ 4.9 · 18 reviews · 3 bedrooms · 8 guests</div>
+        <div class="rule orn"></div>
+        <div class="book"><div class="price">RM 480 <small>/ night</small></div><button class="btn">Reserve</button></div>
+        <div class="chips"><span class="chip">Free cancellation 7 days</span><span class="chip">Breakfast</span></div>
+      </div>
+    </div>
+    <div class="info">
+      <h2>Malam <span class="k">dark luxury</span><span class="badge">easiest to build</span></h2>
+      <p>Near-black teak with champagne-gold hairlines, sharp corners and spaced capital buttons, like a five-star resort at night. It uses fonts the site already loads.</p>
+      <div class="sw"><div><i style="background:#14110e"></i>14110e</div><div><i style="background:#1d1814"></i>1d1814</div><div><i style="background:#f3ebdd"></i>f3ebdd</div><div><i style="background:#c9a96e"></i>c9a96e</div></div>
+      <dl><dt>Heading</dt><dd>Cormorant Garamond (no new font)</dd><dt>Contrast</dt><dd>Text 15.9:1 · muted 7.9:1 · button 8.4:1</dd></dl>
+      <div class="pc"><div><b>Good</b><ul><li>Most dramatic, "grand" look</li><li>Warm-lit photos stand out</li></ul></div><div><b>Watch</b><ul><li>Bright daytime photos can look washed out</li><li>Gold replaces the owner's accent colour</li></ul></div></div>
+    </div>
+  </article>
+
+  <article class="opt">
+    <div class="mock t-tanah">
+      <div class="hero"><span class="tag">Kampung stay</span>
+        <svg viewBox="0 0 360 150" preserveAspectRatio="none" aria-hidden="true"><circle cx="80" cy="45" r="16" fill="#fbe7c8"/><path d="M0 110 Q90 75 180 102 T360 96 V150 H0Z" fill="var(--hill)"/><path d="M150 112 L200 78 L250 112 Z" fill="var(--roof)"/><rect x="160" y="110" width="80" height="26" fill="#b26a45"/></svg></div>
+      <div class="body">
+        <div class="eyebrow">Kuala Kangsar · Perak</div>
+        <div class="title">Rumah Kayu <em>Seri Bayu</em></div>
+        <div class="meta">★ 4.9 · 18 reviews · 3 bedrooms · 8 guests</div>
+        <div class="rule"></div>
+        <div class="book"><div class="price">RM 480 <small>/ night</small></div><button class="btn">Check availability</button></div>
+        <div class="chips"><span class="chip">Free cancellation 7 days</span><span class="chip">Breakfast</span></div>
+      </div>
+    </div>
+    <div class="info">
+      <h2>Tanah <span class="k">earth &amp; clay</span></h2>
+      <p>Sun-baked sand, terracotta and olive with soft rounded corners. Calm and handmade, closer to a wellness retreat.</p>
+      <div class="sw"><div><i style="background:#f5efe4"></i>f5efe4</div><div><i style="background:#2b211a"></i>2b211a</div><div><i style="background:#a4472a"></i>a4472a</div><div><i style="background:#c67b5c"></i>c67b5c</div><div><i style="background:#7a7a4a"></i>7a7a4a</div></div>
+      <dl><dt>Heading</dt><dd>Lora</dd><dt>Contrast</dt><dd>Text 13.7:1 · muted 5.4:1 · button 6.0:1</dd></dl>
+      <div class="pc"><div><b>Good</b><ul><li>Fits kampung, farm and eco stays</li><li>Warm and approachable</li></ul></div><div><b>Watch</b><ul><li>Less "grand", more relaxed</li><li>Similar warmth to Heritage</li></ul></div></div>
+    </div>
+  </article>
+
+  <article class="opt">
+    <div class="mock t-pesisir">
+      <div class="hero"><span class="tag">Seaside villa</span>
+        <svg viewBox="0 0 360 150" preserveAspectRatio="none" aria-hidden="true"><path d="M0 105 Q60 98 120 104 T240 102 T360 104 V150 H0Z" fill="var(--hill)"/><path d="M0 122 Q60 116 120 121 T240 119 T360 121 V150 H0Z" fill="#e9dfc8"/><path d="M150 106 L200 72 L250 106 Z" fill="#14283d"/><rect x="160" y="104" width="80" height="20" fill="var(--roof)"/></svg></div>
+      <div class="body">
+        <div class="eyebrow">Pantai Cenang · Langkawi</div>
+        <div class="title">Rumah Kayu <em>Seri Bayu</em></div>
+        <div class="meta">★ 4.9 · 18 reviews · 3 bedrooms · 8 guests</div>
+        <div class="rule orn"></div>
+        <div class="book"><div class="price">RM 480 <small>/ night</small></div><button class="btn">Check availability</button></div>
+        <div class="chips"><span class="chip">Free cancellation 7 days</span><span class="chip">Breakfast</span></div>
+      </div>
+    </div>
+    <div class="info">
+      <h2>Pesisir <span class="k">coastal</span></h2>
+      <p>Sea-salt white and deep ocean navy with a touch of sand gold: the classic luxury-hotel navy-and-gold pairing, kept light and airy.</p>
+      <div class="sw"><div><i style="background:#f6f7f4"></i>f6f7f4</div><div><i style="background:#14283d"></i>14283d</div><div><i style="background:#1f4e6e"></i>1f4e6e</div><div><i style="background:#c8b48a"></i>c8b48a</div></div>
+      <dl><dt>Heading</dt><dd>Playfair Display</dd><dt>Contrast</dt><dd>Text 13.9:1 · muted 5.6:1 · button 8.9:1</dd></dl>
+      <div class="pc"><div><b>Good</b><ul><li>Beach, island and lake stays</li><li>Bright, high-trust feel</li></ul></div><div><b>Watch</b><ul><li>Off-key for inland kampung homes</li><li>Navy is common on hotel sites</li></ul></div></div>
+    </div>
+  </article>
+
+  <article class="opt">
+    <div class="mock t-galeri">
+      <div class="hero"><span class="tag">Architect's house</span>
+        <svg viewBox="0 0 360 150" preserveAspectRatio="none" aria-hidden="true"><rect x="0" y="112" width="360" height="38" fill="var(--hill)"/><rect x="130" y="70" width="120" height="44" fill="var(--roof)"/><rect x="150" y="82" width="34" height="18" fill="#d8d8d4"/><rect x="196" y="82" width="34" height="18" fill="#d8d8d4"/></svg></div>
+      <div class="body">
+        <div class="eyebrow">Kuala Kangsar · Perak</div>
+        <div class="title">Rumah Kayu <em>Seri Bayu</em></div>
+        <div class="meta">★ 4.9 · 18 reviews · 3 bedrooms · 8 guests</div>
+        <div class="rule"></div>
+        <div class="book"><div class="price">RM 480 <small>/ night</small></div><button class="btn">Reserve</button></div>
+        <div class="chips"><span class="chip">Free cancellation 7 days</span><span class="chip">Breakfast</span></div>
+      </div>
+    </div>
+    <div class="info">
+      <h2>Galeri <span class="k">minimal editorial</span></h2>
+      <p>Pure white, black ink, square corners and a high-contrast fashion-magazine serif. The photos do all the talking.</p>
+      <div class="sw"><div><i style="background:#ffffff"></i>ffffff</div><div><i style="background:#f6f6f4"></i>f6f6f4</div><div><i style="background:#111111"></i>111111</div><div><i style="background:#5f5f5c"></i>5f5f5c</div></div>
+      <dl><dt>Heading</dt><dd>Libre Bodoni</dd><dt>Contrast</dt><dd>Text 18.9:1 · muted 6.4:1 · button 18.9:1</dd></dl>
+      <div class="pc"><div><b>Good</b><ul><li>Modern villas, design-led homes</li><li>Timeless; suits any photo</li></ul></div><div><b>Watch</b><ul><li>Can feel cold without great photos</li><li>Owner accent colour mostly unused</li></ul></div></div>
+    </div>
+  </article>
+
+  <article class="opt">
+    <div class="mock t-peranakan">
+      <div class="hero"><span class="tag">Shophouse stay</span>
+        <svg viewBox="0 0 360 150" preserveAspectRatio="none" aria-hidden="true"><rect x="110" y="58" width="140" height="92" fill="#fbf6ec"/><path d="M104 60 H256 V50 H104Z" fill="var(--roof)"/><rect x="128" y="76" width="26" height="34" rx="13" fill="var(--hill)"/><rect x="167" y="76" width="26" height="34" rx="13" fill="var(--hill)"/><rect x="206" y="76" width="26" height="34" rx="13" fill="var(--hill)"/><rect x="160" y="118" width="40" height="32" fill="var(--roof)"/></svg></div>
+      <div class="body">
+        <div class="eyebrow">Jonker Walk · Melaka</div>
+        <div class="title">Rumah Kayu <em>Seri Bayu</em></div>
+        <div class="meta">★ 4.9 · 18 reviews · 3 bedrooms · 8 guests</div>
+        <div class="rule orn"></div>
+        <div class="book"><div class="price">RM 480 <small>/ night</small></div><button class="btn">Check availability</button></div>
+        <div class="chips"><span class="chip">Free cancellation 7 days</span><span class="chip">Breakfast</span></div>
+      </div>
+    </div>
+    <div class="info">
+      <h2>Peranakan <span class="k">Straits heritage</span></h2>
+      <p>Jade green, coral and marigold on cream, an inscriptional capital serif and a faint tile pattern. Distinctly Malaysian, inspired by Melaka and Penang shophouses.</p>
+      <div class="sw"><div><i style="background:#fbf6ec"></i>fbf6ec</div><div><i style="background:#1f2a28"></i>1f2a28</div><div><i style="background:#1f6b5c"></i>1f6b5c</div><div><i style="background:#b84e43"></i>b84e43</div><div><i style="background:#d9a441"></i>d9a441</div></div>
+      <dl><dt>Heading</dt><dd>Cinzel (capitals only)</dd><dt>Contrast</dt><dd>Text 13.7:1 · coral 4.6:1 · button 6.3:1</dd></dl>
+      <div class="pc"><div><b>Good</b><ul><li>Most local and memorable</li><li>Great for heritage towns</li></ul></div><div><b>Watch</b><ul><li>Strong personality; not for every home</li><li>All-caps headings need short titles</li></ul></div></div>
+    </div>
+  </article>
+
+</main>
+<footer>Drawings stand in for listing photos. Contrast ratios use the WCAG 2 formula against each theme's page background.</footer>
+</body>
+</html>
