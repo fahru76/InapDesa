@@ -11,7 +11,7 @@ Working rules: see `CLAUDE.md`. One section per task, newest first. Every task e
 - [x] Rejected `npm audit fix --force` (downgrades `eslint-config-next` 16 → 14)
 - [x] Tried ESLint 10: lint crashes in `eslint-plugin-react`; reverted, stay on ESLint 9
 - [x] Lessons recorded in `tasks/lessons.md`
-- [ ] Owner: on the PC, remove stale `.git\ORIG_HEAD.lock`, then `git pull --ff-only origin main` and `npm ci`
+- [x] Owner: on the PC, remove stale `.git\ORIG_HEAD.lock`, then `git pull --ff-only origin main` and `npm ci` — done 2026-10-05, PC at `main`, `git status` clean
 
 ### Review
 No dependency change: the only "fix" npm offers makes things worse, and the vulnerable code never ships to guests.
@@ -27,7 +27,7 @@ Goal: `github.com/fahru76/InapDesa` (`main`) is the source of truth; the owner's
 - [x] CLAUDE.md: replace "Delivering to the owner's computer" with "Source of truth: the GitHub repo" (branch → verify → PR → main; optional `git pull --ff-only` sync)
 - [x] README install step: clone / pull instead of a PC folder
 - [x] lessons.md: mark tarball-delivery lesson as superseded
-- [ ] Owner, once: on the PC, commit/push any local edits not yet on GitHub, so nothing lives only on the PC
+- [x] Owner, once: on the PC, commit/push any local edits not yet on GitHub, so nothing lives only on the PC — the only PC-side change (lockfile `engines`) landed via fahru76/InapDesa#2
 
 ### Review
 Docs-only change; no app code touched. The checksum/tarball delivery procedure is retired. The one manual step left is
