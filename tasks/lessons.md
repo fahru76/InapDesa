@@ -22,6 +22,16 @@ Add one entry after every correction or failed attempt: what happened → the ru
 - **Inline constraints get generated names.** `check (...)` declared on a column is named by Postgres; drop it by
   looking it up in `pg_constraint`, not by guessing the name (see `20261007000000_more_themes.sql`).
 
+- **`npm audit` "high" can be dev-only and unfixable.** 2026-10-05: 5 highs were one advisory (GHSA-vfj7-8cjw-p6xm)
+  in `braces@3.0.3` — the latest release, no fix exists — reached only via `eslint-config-next` → `fast-glob`.
+  `npm audit --omit=dev` = 0. `npm audit fix --force` would *downgrade* `eslint-config-next` 16 → 14. Rule: judge
+  with `--omit=dev` first; never run `audit fix --force`; re-check when `eslint-config-next` updates.
+- **ESLint 10 is not usable yet** (2026-10-05). `eslint-plugin-react` 7.37.5 (inside `eslint-config-next` 16.3.8)
+  crashes in `getReactVersionFromContext` and three plugins don't list ESLint 10 as a peer. Stay on ESLint 9
+  (npm's "deprecated" notice is cosmetic) until `eslint-config-next` supports 10; try it on a branch with `npm run verify`.
+- **Use `npm ci`, not `npm install`.** `npm install` rewrites `package-lock.json` (e.g. platform-specific optional
+  packages); `npm ci` installs exactly what the lockfile says and never changes it.
+
 ## Code
 - **JS bit operators are 32-bit.** `Date.now() >> 16` overflowed and produced negative idempotency-key buckets.
   Rule: use `Math.floor(Date.now() / 600_000)` for time buckets; never bit-shift timestamps.
