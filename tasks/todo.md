@@ -4,6 +4,22 @@ Working rules: see `CLAUDE.md`. One section per task, newest first. Every task e
 
 ---
 
+## 2026-10-05 — GitHub repo becomes the master copy
+
+Goal: `github.com/fahru76/InapDesa` (`main`) is the source of truth; the owner's PC is an ordinary clone, synced only on request.
+
+- [x] Find every rule/doc that treats `C:\InapDesa` as source of truth (CLAUDE.md, README, lessons)
+- [x] CLAUDE.md: replace "Delivering to the owner's computer" with "Source of truth: the GitHub repo" (branch → verify → PR → main; optional `git pull --ff-only` sync)
+- [x] README install step: clone / pull instead of a PC folder
+- [x] lessons.md: mark tarball-delivery lesson as superseded
+- [ ] Owner, once: on the PC, commit/push any local edits not yet on GitHub, so nothing lives only on the PC
+
+### Review
+Docs-only change; no app code touched. The checksum/tarball delivery procedure is retired. The one manual step left is
+the owner's: anything edited on the PC since the last delivery must be pushed, or it is not part of the project.
+
+---
+
 ## 2026-10-04 — Adopt the engineering rules (CLAUDE.md) for InapDesa
 
 Goal: AI agents working on this repo follow the adapted "Staff AI Engineer" rules, and the repo actually supports them (one verify command, lint, pinned versions, traceable logs, task/lesson files).
