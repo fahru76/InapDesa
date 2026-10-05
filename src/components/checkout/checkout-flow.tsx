@@ -126,7 +126,8 @@ export function CheckoutFlow(props: CheckoutFlowProps) {
         reference?: string;
       };
       if (!res.ok) {
-        setFormError({ message: data.error ?? t("co.failedStart"), datesTaken: data.code === "unavailable" });
+        const message = data.code === "rate_limited" ? t("co.tooMany") : (data.error ?? t("co.failedStart"));
+        setFormError({ message, datesTaken: data.code === "unavailable" });
         return;
       }
       if (data.provider === "billplz" && data.redirectUrl) {
