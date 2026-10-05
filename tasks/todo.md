@@ -4,6 +4,36 @@ Working rules: see `CLAUDE.md`. One section per task, newest first. Every task e
 
 ---
 
+## 2026-10-05 — Booking-flow review follow-ups (rate limit, Billplz timeout) + restore auth callback
+
+Source: `claude/code-review-booking-flow.md` (project doc). That review was written from summaries; each finding
+was re-checked against the code before acting.
+
+| Finding | Checked in code | Action |
+|---|---|---|
+| No rate limit on `POST /api/bookings` | Confirmed — none in `src` | **Fixed:** 10 attempts / 10 min per client IP → 429 + `Retry-After`, `booking.rate-limited` log (no IP logged), localised message |
+| Billplz gateway list blocks checkout render | `getWalletOptions()` waits up to 15 s on a cold cache | **Fixed:** 4 s timeout for the gateway list only (falls back to cached list / Billplz's own page); bills keep 15 s |
+| Show hold countdown on the details step | **Invalid** — no hold exists until details are submitted | None |
+| Phone required / country code friction | **Invalid** — `normalizePhone` already accepts local `012-…` numbers (+60 default); WhatsApp is the host's main channel | None |
+| Guest retry not handled | **Invalid** — `releaseGuestRetries()` cancels the guest's own stale holds | None |
+| Add comments | Low value; key decisions already commented | None |
+
+- [x] Failing test first: `src/lib/rate-limit.test.ts`
+- [x] `src/lib/rate-limit.ts` + wire into `src/app/api/bookings/route.ts`; client maps `rate_limited` → `co.tooMany` (EN/BM)
+- [x] `src/lib/billplz.ts`: optional `timeoutMs` on `request()`, 4 s for `/v4/payment_gateways`
+- [x] Restore `src/app/auth/callback/route.ts` to the original (see Review)
+- [x] `npm run verify` green: 84/84 tests, build OK
+
+### Review
+Commit 1cbb2d9 on `main` ("replace non-existent EmailOtpType") was based on a wrong premise — `EmailOtpType` *is*
+exported by `@supabase/supabase-js` 2.117 and the original file type-checked. The edit broke `main`: `tsc` fails
+(`const { data, user } = getUser()`), with an allowlist every host would have been signed out, and the `next`
+check was inverted into an **open redirect** (`?next=//evil.example` or `https://…` passed through). Restored the
+file byte-for-byte to the original. Rate limit is per server instance (documented in the file); move it to Postgres
+if `booking.rate-limited` logs show distributed abuse.
+
+---
+
 ## 2026-10-05 — Settle npm audit warnings and PC sync
 
 - [x] Sync lockfile root `engines` with `package.json` (only PC-side change) — merged as fahru76/InapDesa#2
