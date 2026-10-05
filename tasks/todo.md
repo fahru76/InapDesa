@@ -4,6 +4,21 @@ Working rules: see `CLAUDE.md`. One section per task, newest first. Every task e
 
 ---
 
+## 2026-10-05 — Settle npm audit warnings and PC sync
+
+- [x] Sync lockfile root `engines` with `package.json` (only PC-side change) — merged as fahru76/InapDesa#2
+- [x] `npm audit`: 5 high = one dev-only advisory in `braces@3.0.3` (no fixed release); production deps = 0
+- [x] Rejected `npm audit fix --force` (downgrades `eslint-config-next` 16 → 14)
+- [x] Tried ESLint 10: lint crashes in `eslint-plugin-react`; reverted, stay on ESLint 9
+- [x] Lessons recorded in `tasks/lessons.md`
+- [ ] Owner: on the PC, remove stale `.git\ORIG_HEAD.lock`, then `git pull --ff-only origin main` and `npm ci`
+
+### Review
+No dependency change: the only "fix" npm offers makes things worse, and the vulnerable code never ships to guests.
+`npm run verify` green (78/78 tests) on `main` after reverting the ESLint 10 trial.
+
+---
+
 ## 2026-10-05 — GitHub repo becomes the master copy
 
 Goal: `github.com/fahru76/InapDesa` (`main`) is the source of truth; the owner's PC is an ordinary clone, synced only on request.
