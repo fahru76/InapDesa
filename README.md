@@ -18,10 +18,12 @@ A booking site for private homestay owners and boutique hosts. Guests pick dates
 
 ## 2. Install
 
-Run in the project folder (e.g. `C:\InapDesa` in PowerShell, or a terminal in VS Code):
+The GitHub repo is the master copy. Clone it (or, in an existing clone such as `C:\InapDesa`, run `git pull --ff-only origin main`), then:
 
 ```bash
-npm install
+git clone https://github.com/fahru76/InapDesa.git
+cd InapDesa
+npm ci
 ```
 
 ## 3. Environment variables

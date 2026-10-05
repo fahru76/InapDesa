@@ -38,6 +38,7 @@ Add one entry after every correction or failed attempt: what happened → the ru
   Rule: anything time-based renders relative to "now" in the property's time zone.
 
 ## Delivery
-- **The owner's copy can drift.** Rule: checksum device files against the last delivered commit before overwriting;
-  back up first; plain `tar -x` fails on existing files in the connected folder — use `tar --overwrite`.
+- **The owner's copy can drift.** Copying files/tarballs onto the PC needed checksums, backups and `tar --overwrite`
+  to stay safe. Superseded 2026-10-05: GitHub is now the master copy; the PC is an ordinary clone synced (optionally)
+  with `git pull --ff-only`, so drift shows up as `git status` changes instead of silent overwrites.
 - **Never overwrite `.env.local`.** Append missing keys with empty values only.

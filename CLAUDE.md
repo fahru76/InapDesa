@@ -21,7 +21,7 @@ on this repo; the rest apply to the app.
 - Work from evidence, not summaries: read the actual file, the diff, the DB row, the log line before deciding.
 - Read the Next.js docs in `node_modules/next/dist/docs/` before using a Next API — this version differs from training data.
 - Keep tool output small: `head`, `grep`, targeted reads; paginate; never paste whole files or logs into the transcript.
-- Re-read state each turn (files can change on disk, the owner's device copy can drift) instead of trusting memory.
+- Re-read state each turn (files can change on disk, `main` can move on GitHub) instead of trusting memory; `git fetch` first.
 
 ### 3. Right effort for each job
 - Low effort for lookups and mechanical edits; high effort for money flows, auth/RLS, migrations and refunds.
@@ -61,11 +61,20 @@ on this repo; the rest apply to the app.
 5. **Document results:** add a Review section to the task in `tasks/todo.md`.
 6. **Capture lessons:** update `tasks/lessons.md` after every correction or failed attempt.
 
-## Delivering to the owner's computer
-- The working copy on the owner's PC (`C:\InapDesa`) holds their edits — treat it as the source of truth.
-- Before overwriting: checksum the device files against the last delivered commit; if any differ, stop and ask.
-- Back up the files being replaced (`_backup-<version>-<date>.tar.gz`), extract with `tar --overwrite`, then verify
-  checksums of every delivered file.
+## Source of truth: the GitHub repo
+- `github.com/fahru76/InapDesa` is the master copy. `main` is what ships to production.
+- Every change goes through a branch → `npm run verify` → push → pull request (CI green) → merge into `main`.
+  Never commit straight to `main`; never force-push `main`.
+- The owner's PC (`C:\InapDesa`) is **not** a source of truth any more — it is just another clone. Nothing is
+  delivered there by copying files or tarballs.
+- Edits made on the PC reach the project only by being committed and pushed (or opened as a PR) from the PC.
+- **Optional PC sync** — only when the owner asks, and they run it on the PC (PowerShell, in `C:\InapDesa`):
+  ```powershell
+  git status            # must be clean; if not, commit/push or `git stash` first — never discard
+  git pull --ff-only origin main
+  npm ci
+  ```
+  `.env.local` is git-ignored and never touched by a pull. If `--ff-only` fails, stop and ask — don't merge or reset blind.
 
 ## Core principles
 - **Checks over opinions:** if it isn't measured, it isn't better.
