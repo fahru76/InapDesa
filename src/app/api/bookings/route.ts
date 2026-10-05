@@ -3,9 +3,13 @@ import { BookingError, createPendingBooking } from "@/lib/booking-service";
 import { getLocale } from "@/lib/i18n-server";
 import { createBookingSchema } from "@/lib/validation";
 import { elapsed, log } from "@/lib/log";
+import { clientIp, createRateLimiter } from "@/lib/rate-limit";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
+
+/** Each attempt can hold real dates, so cap attempts per client: 10 per 10 minutes is ample for genuine retries. */
+const holdLimiter = createRateLimiter({ limit: 10, windowMs: 10 * 60_000 });
 
 /** POST /api/bookings — hold the dates and return a Stripe client secret for the deposit. */
 export async function POST(request: NextRequest) {
@@ -14,6 +18,16 @@ export async function POST(request: NextRequest) {
   const host = request.headers.get("host");
   if (origin && host && new URL(origin).host !== host) {
     return NextResponse.json({ error: "Cross-origin requests are not allowed." }, { status: 403 });
+  }
+
+  const limited = holdLimiter.check(clientIp(request.headers));
+  if (!limited.allowed) {
+    // No IP in the log line (personal data); the event count is enough to spot abuse.
+    log.warn("booking.rate-limited", { retryAfterSeconds: limited.retryAfterSeconds, ms: elapsed(started) });
+    return NextResponse.json(
+      { error: "Too many booking attempts. Please wait a few minutes and try again.", code: "rate_limited" },
+      { status: 429, headers: { "Retry-After": String(limited.retryAfterSeconds), "Cache-Control": "no-store" } },
+    );
   }
 
   let body: unknown;
