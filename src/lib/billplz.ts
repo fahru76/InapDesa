@@ -45,7 +45,11 @@ export class BillplzError extends Error {
   }
 }
 
-async function request<T>(cfg: BillplzConfig, path: string, init: { method?: string; form?: Record<string, string> } = {}): Promise<T> {
+async function request<T>(
+  cfg: BillplzConfig,
+  path: string,
+  init: { method?: string; form?: Record<string, string>; timeoutMs?: number } = {},
+): Promise<T> {
   const res = await fetch(`${cfg.baseUrl}${path}`, {
     method: init.method ?? "GET",
     headers: {
@@ -55,7 +59,7 @@ async function request<T>(cfg: BillplzConfig, path: string, init: { method?: str
     },
     body: init.form ? new URLSearchParams(init.form).toString() : undefined,
     cache: "no-store",
-    signal: AbortSignal.timeout(15_000),
+    signal: AbortSignal.timeout(init.timeoutMs ?? 15_000),
   });
   const text = await res.text();
   if (!res.ok) {
@@ -142,6 +146,7 @@ export function billPaymentUrl(bill: BillplzBill, preselected: boolean): string 
 }
 
 let gatewayCache: { at: number; options: WalletOption[] } | null = null;
+const GATEWAY_LIST_TIMEOUT_MS = 4_000;
 
 /** Active e-wallet / DuitNow QR gateways on this Billplz account (cached 10 minutes). */
 export async function getWalletOptions(): Promise<WalletOption[]> {
@@ -149,7 +154,11 @@ export async function getWalletOptions(): Promise<WalletOption[]> {
   if (!cfg) return [];
   if (gatewayCache && Date.now() - gatewayCache.at < 10 * 60_000) return gatewayCache.options;
   try {
-    const body = await request<{ payment_gateways?: BillplzGateway[] } | BillplzGateway[]>(cfg, "/v4/payment_gateways");
+    // Runs while the checkout page renders, so fail fast: on timeout we fall back to the cached list
+    // (or none, and guests still pick FPX/wallets on Billplz's own page).
+    const body = await request<{ payment_gateways?: BillplzGateway[] } | BillplzGateway[]>(cfg, "/v4/payment_gateways", {
+      timeoutMs: GATEWAY_LIST_TIMEOUT_MS,
+    });
     const list = Array.isArray(body) ? body : (body.payment_gateways ?? []);
     const options = walletOptions(list);
     gatewayCache = { at: Date.now(), options };

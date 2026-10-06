@@ -33,6 +33,12 @@ Add one entry after every correction or failed attempt: what happened → the ru
   packages); `npm ci` installs exactly what the lockfile says and never changes it.
 
 ## Code
+- **Never "fix" a type error you haven't reproduced.** 2026-10-05: a web-editor commit to `main` replaced
+  `EmailOtpType` (which exists) with a hand-written type and rewrote the auth callback, breaking `tsc`, the host
+  allowlist and the `next` redirect guard (open redirect). Rule: reproduce with `npm run typecheck` first, keep the
+  diff to the failing line, and never commit to `main` from the web editor — branch → verify → PR.
+- **Review from code, not summaries.** A review built from fetched summaries listed findings that the code already
+  handled. Rule: confirm every finding with `grep`/a read of the actual file before acting on it.
 - **JS bit operators are 32-bit.** `Date.now() >> 16` overflowed and produced negative idempotency-key buckets.
   Rule: use `Math.floor(Date.now() / 600_000)` for time buckets; never bit-shift timestamps.
 - **Controlled checkboxes that wait for the server feel broken.** The foreign-guest toggle only updated after a
