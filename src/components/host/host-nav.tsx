@@ -23,8 +23,8 @@ export function HostNav({ properties, email }: { properties: { id: string; title
   return (
     <>
       {/* Desktop sidebar */}
-      <aside className="hidden w-64 shrink-0 lg:block">
-        <div className="sticky top-24 space-y-6">
+      <aside className="hidden w-60 shrink-0 lg:block">
+        <div className="sticky top-24 space-y-5">
           {properties.length > 1 && (
             <select
               aria-label="Select property"
@@ -39,6 +39,11 @@ export function HostNav({ properties, email }: { properties: { id: string; title
               ))}
             </select>
           )}
+          <div className="mb-5 rounded-2xl bg-ink px-4 py-4 text-ivory shadow-float dark:bg-zinc-900">
+            <p className="text-[10px] font-bold tracking-[0.2em] text-brass-light uppercase">InapDesa studio</p>
+            <p className="mt-2 font-display text-2xl leading-none">Run your stay.</p>
+            <p className="mt-2 text-xs leading-5 text-ivory/60">Bookings, content, and arrivals in one quiet place.</p>
+          </div>
           <nav className="space-y-1" aria-label="Host">
             {LINKS.map(({ href, label, icon: Icon }) => {
               const active = href === "/host" ? pathname === "/host" : pathname.startsWith(href);

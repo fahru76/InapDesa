@@ -98,6 +98,10 @@
     @apply bg-brand-200 text-ink;
   }
 
+  .surface-muted {
+    background-image: linear-gradient(135deg, color-mix(in srgb, var(--surface-muted) 92%, var(--color-brand-50)), var(--surface-muted));
+  }
+
   :focus-visible {
     @apply outline-2 outline-offset-2 outline-brand-600;
   }
