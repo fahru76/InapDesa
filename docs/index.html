@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>InapDesa — Direct Homestay Booking</title>
-    <meta name="description" content="A booking platform for boutique homestays with advance payments, live pricing calendar, and host dashboard.">
+    <title>InapDesa - Exclusive Homestay Experiences</title>
+    <meta name="description" content="Discover exclusive, curated homestays across stunning destinations. Premium, secure booking for luxury travelers.">
     <style>
         * {
             margin: 0;
@@ -285,172 +285,205 @@
     </style>
 </head>
 <body>
-    <header>
-        <div class="logo">InapDesa</div>
-        <nav>
-            <a href="#features">Features</a>
-            <a href="#booking">Booking Flow</a>
-            <a href="#themes">Themes</a>
-            <a href="#tech">Technology</a>
-        </nav>
-    </header>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">Inap<span>Desa</span></div>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#properties">Properties</a></li>
+            <li><a href="#how">How It Works</a></li>
+            <li><a href="#reviews">Reviews</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="#" class="nav-cta">Book Now</a></li>
+        </ul>
+    </nav>
 
-    <div class="hero">
-        <h1>Direct Homestay Booking Platform</h1>
-        <p>Beautiful, exclusive booking experience for boutique homestay owners and their guests</p>
-        <a href="https://github.com/fahru76/InapDesa" class="cta-button">View on GitHub</a>
-    </div>
-
-    <div id="features" class="section">
-        <h2>Core Features</h2>
-        <div class="features">
-            <div class="feature-card">
-                <h3>📅 Live Pricing Calendar</h3>
-                <p>Guest-facing calendar with real-time availability, weekend/weekday pricing, and visual booking status.</p>
-            </div>
-            <div class="feature-card">
-                <h3>💳 Secure Payments</h3>
-                <p><span class="highlight">Stripe Payment Element</span> + optional <span class="highlight">Billplz</span> for Malaysian e-wallets, FPX, and GrabPay.</p>
-            </div>
-            <div class="feature-card">
-                <h3>🏠 Host Dashboard</h3>
-                <p>Complete booking management, guest communication, calendar sync (Airbnb/Agoda/Booking.com), and content editor.</p>
-            </div>
-            <div class="feature-card">
-                <h3>🔐 Security & Trust</h3>
-                <p>Row-Level Security on all data, idempotent webhooks, verified reviews, security deposits, and cancellation presets.</p>
-            </div>
-            <div class="feature-card">
-                <h3>🌍 Multi-Language</h3>
-                <p>Guest-facing interface in <span class="highlight">English and Bahasa Melayu</span> with localized dates and amounts.</p>
-            </div>
-            <div class="feature-card">
-                <h3>📱 Responsive Design</h3>
-                <p>Beautiful on desktop and mobile. Progressive disclosure with bottom-sheet booking on phones.</p>
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Discover Exclusive <span>Homestays</span></h1>
+            <p>Immerse yourself in authentic, curated experiences across stunning destinations</p>
+            <div class="hero-buttons">
+                <button class="btn btn-primary">Explore Properties</button>
+                <button class="btn btn-secondary">Learn More</button>
             </div>
         </div>
-    </div>
+    </section>
 
-    <div id="booking" class="section">
-        <h2>Booking Flow</h2>
-        <div class="booking-flow">
-            <div class="flow-step">
+    <!-- Featured Properties -->
+    <section class="featured" id="properties">
+        <div class="featured-header">
+            <h2>Featured <span>Properties</span></h2>
+            <p>Hand-picked exclusive homestays from our curated collection</p>
+        </div>
+
+        <div class="properties-grid">
+            <div class="property-card">
+                <div class="property-image">Property Image Placeholder</div>
+                <div class="property-info">
+                    <h3>Villa Sunset Retreat</h3>
+                    <div class="property-location">Bali, Indonesia</div>
+                    <p class="property-description">Luxury beachfront villa with private pool and ocean view. Perfect for couples seeking romantic getaway.</p>
+                    <div class="property-price">
+                        <span class="price-tag">$320/night</span>
+                        <span class="property-rating">⭐⭐⭐⭐⭐</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="property-card">
+                <div class="property-image">Property Image Placeholder</div>
+                <div class="property-info">
+                    <h3>Mountain Lodge Escape</h3>
+                    <div class="property-location">Swiss Alps</div>
+                    <p class="property-description">Cozy alpine chalet with mountain views. Ideal for nature lovers and adventure seekers.</p>
+                    <div class="property-price">
+                        <span class="price-tag">$280/night</span>
+                        <span class="property-rating">⭐⭐⭐⭐⭐</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="property-card">
+                <div class="property-image">Property Image Placeholder</div>
+                <div class="property-info">
+                    <h3>Urban Luxury Suite</h3>
+                    <div class="property-location">Tokyo, Japan</div>
+                    <p class="property-description">Modern urban sanctuary in city center. Walking distance to galleries, restaurants, and nightlife.</p>
+                    <div class="property-price">
+                        <span class="price-tag">$350/night</span>
+                        <span class="property-rating">⭐⭐⭐⭐⭐</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-it-works" id="how">
+        <h2>How It <span>Works</span></h2>
+
+        <div class="steps-grid">
+            <div class="step">
                 <div class="step-number">1</div>
-                <h4>Listing</h4>
-                <p>Gallery, amenities, live pricing calendar</p>
+                <h3>Browse</h3>
+                <p>Explore our curated collection of exclusive properties and find your perfect destination.</p>
             </div>
-            <div class="flow-step">
+
+            <div class="step">
                 <div class="step-number">2</div>
-                <h4>Checkout</h4>
-                <p>Guest details, dates, capacity validation</p>
+                <h3>Select</h3>
+                <p>Choose your dates, check availability, and view detailed information about the property.</p>
             </div>
-            <div class="flow-step">
+
+            <div class="step">
                 <div class="step-number">3</div>
-                <h4>Hold</h4>
-                <p>Server reserves dates, creates payment intent</p>
+                <h3>Book</h3>
+                <p>Complete secure booking with instant confirmation and flexible cancellation options.</p>
             </div>
-            <div class="flow-step">
+
+            <div class="step">
                 <div class="step-number">4</div>
-                <h4>Payment</h4>
-                <p>Guest pays via Stripe or Billplz</p>
-            </div>
-            <div class="flow-step">
-                <div class="step-number">5</div>
-                <h4>Confirmation</h4>
-                <p>Webhook finalizes booking, sends receipt</p>
-            </div>
-            <div class="flow-step">
-                <div class="step-number">6</div>
-                <h4>Check-in</h4>
-                <p>QR pass, add-to-calendar, WhatsApp to host</p>
+                <h3>Experience</h3>
+                <p>Arrive and enjoy your stay with dedicated support available 24/7 during your trip.</p>
             </div>
         </div>
-    </div>
+    </section>
 
-    <div id="themes" class="section">
-        <h2>Design System: 7 Listing Themes</h2>
-        <p style="text-align: center; color: var(--warm-grey); margin-bottom: 2rem;">
-            Owners customize the look and feel of their listing. Each theme includes typography, colors, layout, and hero style.
-        </p>
-        <div class="themes-grid">
-            <div class="theme-item">
-                <div class="theme-preview heritage">Heritage</div>
-                <div class="theme-name">Heritage</div>
-            </div>
-            <div class="theme-item">
-                <div class="theme-preview malam">Malam</div>
-                <div class="theme-name">Malam</div>
-            </div>
-            <div class="theme-item">
-                <div class="theme-preview tanah">Tanah</div>
-                <div class="theme-name">Tanah</div>
-            </div>
-            <div class="theme-item">
-                <div class="theme-preview pesisir">Pesisir</div>
-                <div class="theme-name">Pesisir</div>
-            </div>
-            <div class="theme-item">
-                <div class="theme-preview galeri">Galeri</div>
-                <div class="theme-name">Galeri</div>
-            </div>
-            <div class="theme-item">
-                <div class="theme-preview peranakan">Peranakan</div>
-                <div class="theme-name">Peranakan</div>
-            </div>
-            <div class="theme-item">
-                <div class="theme-preview classic">Classic</div>
-                <div class="theme-name">Classic</div>
-            </div>
-        </div>
-    </div>
+    <!-- Testimonials -->
+    <section class="testimonials" id="reviews">
+        <h2>What Guests <span>Say</span></h2>
 
-    <div id="tech" class="section">
-        <h2>Technology Stack</h2>
-        <div class="tech-stack">
-            <h3>Frontend & Framework</h3>
-            <div class="tech-list">
-                <span class="tech-badge">Next.js 16</span>
-                <span class="tech-badge">React 19</span>
-                <span class="tech-badge">TypeScript</span>
-                <span class="tech-badge">Tailwind CSS v4</span>
-                <span class="tech-badge">Framer Motion</span>
+        <div class="testimonials-grid">
+            <div class="testimonial">
+                <p>"InapDesa transformed my vacation into an unforgettable experience. The attention to detail and personalized service was exceptional. Highly recommend!"</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">SK</div>
+                    <div class="author-info">
+                        <h4>Sarah Kimble</h4>
+                        <span>Verified Guest</span>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="tech-stack">
-            <h3>Backend & Database</h3>
-            <div class="tech-list">
-                <span class="tech-badge">Supabase</span>
-                <span class="tech-badge">PostgreSQL</span>
-                <span class="tech-badge">Row-Level Security</span>
-                <span class="tech-badge">Serverless Functions</span>
-            </div>
-        </div>
-        <div class="tech-stack">
-            <h3>Payments & Integrations</h3>
-            <div class="tech-list">
-                <span class="tech-badge">Stripe API</span>
-                <span class="tech-badge">Billplz</span>
-                <span class="tech-badge">iCal Sync</span>
-                <span class="tech-badge">WhatsApp/SMS</span>
-            </div>
-        </div>
-        <div class="tech-stack">
-            <h3>Deployment & Monitoring</h3>
-            <div class="tech-list">
-                <span class="tech-badge">Vercel</span>
-                <span class="tech-badge">GitHub Actions CI</span>
-                <span class="tech-badge">Structured Logging</span>
-                <span class="tech-badge">Production Monitoring</span>
-            </div>
-        </div>
-    </div>
 
+            <div class="testimonial">
+                <p>"The property exceeded all my expectations. Beautiful design, comfortable amenities, and the location was perfect. Can't wait to book again!"</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">MJ</div>
+                    <div class="author-info">
+                        <h4>Michael Johnson</h4>
+                        <span>Verified Guest</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial">
+                <p>"Finally found a platform that understands luxury travel. Every detail matters here. The booking process was seamless and support is outstanding."</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">EC</div>
+                    <div class="author-info">
+                        <h4>Elena Caruso</h4>
+                        <span>Verified Guest</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta" id="contact">
+        <h2>Ready to Book Your Stay?</h2>
+        <p>Join thousands of travelers experiencing exclusive homestays across the globe. Your perfect destination awaits.</p>
+        <button class="btn btn-primary">Start Exploring Now</button>
+    </section>
+
+    <!-- Footer -->
     <footer>
-        <p>&copy; 2026 InapDesa. A direct booking platform by <a href="https://github.com/fahru76">Fahru</a>.</p>
-        <p style="margin-top: 1rem;">
-            <a href="https://github.com/fahru76/InapDesa">GitHub Repository</a> ·
-            <a href="https://github.com/fahru76/InapDesa/wiki">Documentation</a>
-        </p>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>About InapDesa</h4>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Our Story</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">Booking Support</a></li>
+                    <li><a href="#">Cancellation Policy</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Terms & Conditions</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                    <li><a href="#">Security</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Connect</h4>
+                <ul>
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">Twitter</a></li>
+                    <li><a href="#">LinkedIn</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2024 InapDesa. All rights reserved. Luxury Homestays Reimagined.</p>
+        </div>
     </footer>
 </body>
 </html>
