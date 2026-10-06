@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InapDesa — Direct Homestay Booking</title>
+    <meta name="description" content="A booking platform for boutique homestays with advance payments, live pricing calendar, and host dashboard.">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --teak: #1c1712;
+            --ivory: #f7f2e9;
+            --sand: #e8dcc8;
+            --brass: #b08d57;
+            --brass-ink: #7a5f35;
+            --accent: #2f5d46;
+            --warm-grey: #9d8b7e;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--teak);
+            background: var(--ivory);
+            line-height: 1.6;
+        }
+
+        header {
+            background: var(--teak);
+            color: var(--ivory);
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+        }
+
+        nav a {
+            color: var(--ivory);
+            text-decoration: none;
+            margin-left: 2rem;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--brass);
+        }
+
+        .hero {
+            background: linear-gradient(135deg, var(--teak) 0%, var(--brass-ink) 100%);
+            color: var(--ivory);
+            padding: 6rem 2rem;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--brass);
+            color: var(--white);
+            padding: 1rem 2.5rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.3s, transform 0.3s;
+            font-size: 1.05rem;
+        }
+
+        .cta-button:hover {
+            background: var(--brass-ink);
+            transform: translateY(-2px);
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+        }
+
+        .feature-card h3 {
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+        }
+
+        .feature-card p {
+            color: var(--warm-grey);
+            line-height: 1.7;
+        }
+
+        .section {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section h2 {
+            font-size: 2.2rem;
+            color: var(--teak);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .booking-flow {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .flow-step {
+            background: var(--sand);
+            padding: 2rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent);
+            text-align: center;
+        }
+
+        .flow-step .step-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .flow-step h4 {
+            color: var(--teak);
+            margin-bottom: 0.5rem;
+        }
+
+        .flow-step p {
+            color: var(--brass-ink);
+            font-size: 0.95rem;
+        }
+
+        .themes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .theme-item {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .theme-preview {
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-align: center;
+            padding: 1rem;
+        }
+
+        .theme-name {
+            padding: 1rem;
+            background: var(--white);
+            font-weight: 600;
+            text-align: center;
+            color: var(--teak);
+        }
+
+        .heritage { background: linear-gradient(135deg, #f7f2e9, #1c1712); }
+        .malam { background: linear-gradient(135deg, #1a1a1a, #8a6a35); color: #e0d5c8; }
+        .tanah { background: linear-gradient(135deg, #d4a574, #a4472a); }
+        .pesisir { background: linear-gradient(135deg, #f5f5f0, #1f4e6e); color: white; }
+        .galeri { background: linear-gradient(135deg, #ffffff, #111111); color: white; }
+        .peranakan { background: linear-gradient(135deg, #1f6b5c, #e8956f); color: white; }
+        .classic { background: linear-gradient(135deg, #f0f0f0, #059669); color: white; }
+
+        .tech-stack {
+            background: var(--sand);
+            padding: 2rem;
+            border-radius: 8px;
+            margin-top: 2rem;
+        }
+
+        .tech-stack h3 {
+            color: var(--teak);
+            margin-bottom: 1rem;
+        }
+
+        .tech-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .tech-badge {
+            background: var(--brass);
+            color: var(--white);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .highlight {
+            background: var(--brass);
+            color: var(--white);
+            padding: 0.1em 0.3em;
+            border-radius: 3px;
+        }
+
+        footer {
+            background: var(--teak);
+            color: var(--ivory);
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: var(--brass);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            nav {
+                display: none;
+            }
+
+            header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">InapDesa</div>
+        <nav>
+            <a href="#features">Features</a>
+            <a href="#booking">Booking Flow</a>
+            <a href="#themes">Themes</a>
+            <a href="#tech">Technology</a>
+        </nav>
+    </header>
+
+    <div class="hero">
+        <h1>Direct Homestay Booking Platform</h1>
+        <p>Beautiful, exclusive booking experience for boutique homestay owners and their guests</p>
+        <a href="https://github.com/fahru76/InapDesa" class="cta-button">View on GitHub</a>
+    </div>
+
+    <div id="features" class="section">
+        <h2>Core Features</h2>
+        <div class="features">
+            <div class="feature-card">
+                <h3>📅 Live Pricing Calendar</h3>
+                <p>Guest-facing calendar with real-time availability, weekend/weekday pricing, and visual booking status.</p>
+            </div>
+            <div class="feature-card">
+                <h3>💳 Secure Payments</h3>
+                <p><span class="highlight">Stripe Payment Element</span> + optional <span class="highlight">Billplz</span> for Malaysian e-wallets, FPX, and GrabPay.</p>
+            </div>
+            <div class="feature-card">
+                <h3>🏠 Host Dashboard</h3>
+                <p>Complete booking management, guest communication, calendar sync (Airbnb/Agoda/Booking.com), and content editor.</p>
+            </div>
+            <div class="feature-card">
+                <h3>🔐 Security & Trust</h3>
+                <p>Row-Level Security on all data, idempotent webhooks, verified reviews, security deposits, and cancellation presets.</p>
+            </div>
+            <div class="feature-card">
+                <h3>🌍 Multi-Language</h3>
+                <p>Guest-facing interface in <span class="highlight">English and Bahasa Melayu</span> with localized dates and amounts.</p>
+            </div>
+            <div class="feature-card">
+                <h3>📱 Responsive Design</h3>
+                <p>Beautiful on desktop and mobile. Progressive disclosure with bottom-sheet booking on phones.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="booking" class="section">
+        <h2>Booking Flow</h2>
+        <div class="booking-flow">
+            <div class="flow-step">
+                <div class="step-number">1</div>
+                <h4>Listing</h4>
+                <p>Gallery, amenities, live pricing calendar</p>
+            </div>
+            <div class="flow-step">
+                <div class="step-number">2</div>
+                <h4>Checkout</h4>
+                <p>Guest details, dates, capacity validation</p>
+            </div>
+            <div class="flow-step">
+                <div class="step-number">3</div>
+                <h4>Hold</h4>
+                <p>Server reserves dates, creates payment intent</p>
+            </div>
+            <div class="flow-step">
+                <div class="step-number">4</div>
+                <h4>Payment</h4>
+                <p>Guest pays via Stripe or Billplz</p>
+            </div>
+            <div class="flow-step">
+                <div class="step-number">5</div>
+                <h4>Confirmation</h4>
+                <p>Webhook finalizes booking, sends receipt</p>
+            </div>
+            <div class="flow-step">
+                <div class="step-number">6</div>
+                <h4>Check-in</h4>
+                <p>QR pass, add-to-calendar, WhatsApp to host</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="themes" class="section">
+        <h2>Design System: 7 Listing Themes</h2>
+        <p style="text-align: center; color: var(--warm-grey); margin-bottom: 2rem;">
+            Owners customize the look and feel of their listing. Each theme includes typography, colors, layout, and hero style.
+        </p>
+        <div class="themes-grid">
+            <div class="theme-item">
+                <div class="theme-preview heritage">Heritage</div>
+                <div class="theme-name">Heritage</div>
+            </div>
+            <div class="theme-item">
+                <div class="theme-preview malam">Malam</div>
+                <div class="theme-name">Malam</div>
+            </div>
+            <div class="theme-item">
+                <div class="theme-preview tanah">Tanah</div>
+                <div class="theme-name">Tanah</div>
+            </div>
+            <div class="theme-item">
+                <div class="theme-preview pesisir">Pesisir</div>
+                <div class="theme-name">Pesisir</div>
+            </div>
+            <div class="theme-item">
+                <div class="theme-preview galeri">Galeri</div>
+                <div class="theme-name">Galeri</div>
+            </div>
+            <div class="theme-item">
+                <div class="theme-preview peranakan">Peranakan</div>
+                <div class="theme-name">Peranakan</div>
+            </div>
+            <div class="theme-item">
+                <div class="theme-preview classic">Classic</div>
+                <div class="theme-name">Classic</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="tech" class="section">
+        <h2>Technology Stack</h2>
+        <div class="tech-stack">
+            <h3>Frontend & Framework</h3>
+            <div class="tech-list">
+                <span class="tech-badge">Next.js 16</span>
+                <span class="tech-badge">React 19</span>
+                <span class="tech-badge">TypeScript</span>
+                <span class="tech-badge">Tailwind CSS v4</span>
+                <span class="tech-badge">Framer Motion</span>
+            </div>
+        </div>
+        <div class="tech-stack">
+            <h3>Backend & Database</h3>
+            <div class="tech-list">
+                <span class="tech-badge">Supabase</span>
+                <span class="tech-badge">PostgreSQL</span>
+                <span class="tech-badge">Row-Level Security</span>
+                <span class="tech-badge">Serverless Functions</span>
+            </div>
+        </div>
+        <div class="tech-stack">
+            <h3>Payments & Integrations</h3>
+            <div class="tech-list">
+                <span class="tech-badge">Stripe API</span>
+                <span class="tech-badge">Billplz</span>
+                <span class="tech-badge">iCal Sync</span>
+                <span class="tech-badge">WhatsApp/SMS</span>
+            </div>
+        </div>
+        <div class="tech-stack">
+            <h3>Deployment & Monitoring</h3>
+            <div class="tech-list">
+                <span class="tech-badge">Vercel</span>
+                <span class="tech-badge">GitHub Actions CI</span>
+                <span class="tech-badge">Structured Logging</span>
+                <span class="tech-badge">Production Monitoring</span>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 InapDesa. A direct booking platform by <a href="https://github.com/fahru76">Fahru</a>.</p>
+        <p style="margin-top: 1rem;">
+            <a href="https://github.com/fahru76/InapDesa">GitHub Repository</a> ·
+            <a href="https://github.com/fahru76/InapDesa/wiki">Documentation</a>
+        </p>
+    </footer>
+</body>
+</html>
